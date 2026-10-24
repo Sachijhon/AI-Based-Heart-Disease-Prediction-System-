@@ -1,0 +1,95 @@
+Requirement Analysis and Literature Review
+AI Based Heart Disease Prediction System
+This document explains what the project will do, who will use it, and how similar prediction tools work. It gives a simple plan before development begins.
+The project is an educational prototype. It predicts a label from a public dataset. It does not diagnose heart disease or recommend treatment.
+Review date: 21 October 2026.
+
+1. Project Purpose
+The project will create a Flask website where an approved user enters heart-related measurements. A trained Random Forest model returns a result, and SHAP (a method for showing how each input affected the model's result) explains what influenced that result.
+The project uses the Cleveland part of the UCI Machine Learning Repository's Heart Disease dataset. It has 303 records and 13 input features. The stored outcome ranges from 0 to 4; this project groups 0 as one class and 1–4 as the other [1]. The result is only the group label in this dataset, not a medical diagnosis.
+2. Who Will Use It
+User	What they can do
+Administrator	Approve accounts, assign roles, and manage model and dataset versions.
+Authorized user	Enter health values, view a prediction and explanation, and see permitted history.
+Researcher or student	View model results and approved records with personal details removed.
+
+The prototype should use sample or de-identified data. It should not ask for a patient's name or personal identification number.
+3. Main System Requirements
+ID	The system must
+R1	Require users to log in and give each role the right level of access.
+R2	Collect the 13 health values listed in Section 4, with clear labels and units.
+R3	Check that entries are complete and use allowed numbers or choices.
+R4	Use the same saved data preparation steps and Random Forest model used during training.
+R5	Show the result and a SHAP explanation. Explain that the output is not a diagnosis.
+R6	Save permitted prediction history with the date and model version. Show a results page with model evaluation scores.
+
+Other important needs: keep passwords protected, limit access to stored health data, show helpful error messages, and keep track of which model produced each result.
+4. Health Values Used
+The form will use these 13 features from the selected UCI data file [1]. Some are category codes, so the website should show readable choices and use the matching code behind the scenes.
+Dataset name	Simple meaning
+age	Age in years.
+sex	Sex category, as coded in the dataset.
+cp	Type of chest pain.
+trestbps	Blood pressure while resting, in mm Hg.
+chol	Blood cholesterol, in mg/dL.
+fbs	Whether fasting blood sugar is above the dataset threshold.
+restecg	Heart tracing (ECG) result while resting.
+thalach	Highest heart rate reached during the exercise test.
+exang	Whether chest pain (angina) occurred during exercise.
+oldpeak	Change in a heart-test reading during exercise.
+slope	Shape of the ST line during exercise.
+ca	Number of main heart blood vessels seen in an imaging test.
+thal	Category from the dataset's thalassemia test.
+
+Before training the model, check the downloaded data file for its category codes and missing values. Do not guess missing entries.
+5. Similar Studies and Tools
+The examples below do different jobs. Some classify a dataset label; others estimate the chance of a future heart problem. Their results cannot be compared directly.
+Study or tool	What it does	Method or technology	Main limit for this project
+Mohan et al. (2019) [2]	Tests methods for classifying heart disease from health data and reports an accuracy score.	Combines Random Forest with a linear model and feature selection.	Its accuracy is for that study's data. It does not show how the model will work for a different population.
+Weng et al. (2017) [3]	Estimates a person's chance of a first heart event within 10 years, using 378,256 UK primary-care records.	Compares Random Forest, Logistic Regression, and other machine-learning models.	It predicts future risk in UK data. This project predicts a label in the UCI dataset.
+SCORE2 (2021) [4]	Estimates 10-year heart and stroke risk for European adults.	Uses risk equations based on age, smoking, blood pressure, and cholesterol; checked in other European groups.	Designed for specific European age groups and risk regions. It predicts future events, not the UCI dataset label.
+QRISK3 (2017) [5]	A web calculator for a person's 10-year heart and stroke risk.	Uses published risk equations and health factors such as age, blood pressure, smoking, and medical history.	Built using UK health records. It estimates future risk, not whether a dataset record has label 0 or 1–4.
+AHA PREVENT [6]	A web calculator for 10-year and 30-year heart, stroke, and heart-failure risk.	Uses published equations with heart, kidney, and metabolic health information.	Designed for adults in its stated U.S. use group who do not already have CVD. It has a different purpose from this student project.
+
+What We Learn from These Examples
+•	Researchers use different methods, including a simpler model called Logistic Regression and machine-learning models such as Random Forest. No method should be called best until it is tested fairly on the same data [2, 3].
+•	Established calculators estimate future risk for specific groups. This project predicts a label from a small, older dataset, so it must not claim to replace those tools.
+•	The project can make its workflow easy to follow: log in, enter values, see the Random Forest result, review a SHAP explanation, and check how the model was tested.
+•	SHAP explains how the model used the entered values. It does not prove that a value caused heart disease [8].
+6. Technologies for This Project
+Technology	What it will do
+Flask [10]	Build the website pages and handle user requests.
+scikit-learn Random Forest [11]	Train and run the selected prediction model.
+SHAP [12]	Explain which input values influenced a model result.
+PostgreSQL with SQLAlchemy [13]	Store accounts, prediction history, and model versions.
+
+Flask is a small web framework, so the project must add its own secure login, input checks, and access rules [10]. Official documentation for the selected software will guide implementation. The fact that a library provides a feature does not mean the finished app is clinically validated.
+7. Project Stages
+Stage	Work
+1. Confirm	Check the requirements, dataset file, target classes, and category codes.
+2. Prepare	Check missing values and class balance; prepare the same data steps for training and use.
+3. Train	Train Random Forest and compare it with Logistic Regression.
+4. Evaluate	Review model scores and SHAP explanations. Record the model version and limits.
+5. Build and check	Create the Flask pages, connect the database, and check the full login-to-result flow.
+
+How We Will Know It Works
+•	Users can log in and only see pages allowed for their role.
+•	All 13 values are checked and sent to the model in the correct format.
+•	A valid entry produces a result and a clear SHAP explanation.
+•	The report compares Random Forest with Logistic Regression and shows more than accuracy: it includes sensitivity, specificity, F1-score, and ROC-AUC.
+•	Each saved result records the model version. The project clearly states that it is educational and has not been tested for clinical use.
+Sensitivity means how many disease-present cases the model finds. Specificity means how many no-disease cases it correctly identifies. F1-score combines sensitivity with precision (how many positive predictions were correct). ROC-AUC shows how well the model separates the two groups across different cut-offs. Record the data and testing steps so the results can be understood and repeated [9]. Do not write model scores until the evaluation has been run.
+8. References
+[1] UCI Machine Learning Repository. Heart Disease dataset. https://archive.ics.uci.edu/dataset/45/heart+disease
+[2] Mohan S, Thirumalai C, Srivastava G. Effective Heart Disease Prediction Using Hybrid Machine Learning Techniques. IEEE Access. 2019. https://doi.org/10.1109/ACCESS.2019.2923707
+[3] Weng SF, et al. Can machine-learning improve cardiovascular risk prediction using routine clinical data? PLOS ONE. 2017. https://doi.org/10.1371/journal.pone.0174944
+[4] SCORE2 Working Group. SCORE2 risk prediction algorithms. European Heart Journal. 2021. https://doi.org/10.1093/eurheartj/ehab309
+[5] Hippisley-Cox J, et al. Development and validation of QRISK3 risk prediction algorithms. BMJ. 2017. https://doi.org/10.1136/bmj.j2099
+[6] American Heart Association. PREVENT Online Calculator. https://professional.heart.org/en/guidelines-and-statements/prevent-calculator (accessed 21 October 2026)
+[7] Breiman L. Random Forests. Machine Learning. 2001. https://doi.org/10.1023/A:1010933404324
+[8] Lundberg SM, Lee SI. A Unified Approach to Interpreting Model Predictions. NeurIPS. 2017. https://proceedings.neurips.cc/paper_files/paper/2017/hash/8a20a8621978632d76c43dfd28b67767-Abstract.html
+[9] Collins GS, et al. TRIPOD+AI reporting guideline. BMJ. 2024. https://doi.org/10.1136/bmj-2023-078378
+[10] Flask Documentation. Quickstart and Design Decisions. https://flask.palletsprojects.com/en/stable/quickstart/ and https://flask.palletsprojects.com/en/stable/design/
+[11] scikit-learn Documentation. RandomForestClassifier. https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html
+[12] SHAP Documentation. TreeExplainer. https://shap.readthedocs.io/en/stable/api.html
+[13] SQLAlchemy Documentation. ORM. https://docs.sqlalchemy.org/en/20/orm/
