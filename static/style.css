@@ -1,0 +1,192 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f3f6fa;
+    color: #1f2937;
+}
+
+.container {
+    max-width: 960px;
+    margin: 36px auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+header h1 {
+    margin: 8px 0;
+    color: #123b5d;
+    font-size: 2.4rem;
+}
+
+.eyebrow {
+    color: #137c8b;
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+form, .result-card {
+    background: white;
+    padding: 28px;
+    border-radius: 16px;
+    box-shadow: 0 8px 28px rgba(20, 40, 60, 0.08);
+}
+
+h2 {
+    color: #123b5d;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.92rem;
+    font-weight: 600;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: white;
+    font-size: 1rem;
+}
+
+input:focus, select:focus {
+    outline: 2px solid #64b5c4;
+    border-color: #137c8b;
+}
+
+button, .button-link {
+    display: block;
+    width: 100%;
+    margin-top: 24px;
+    padding: 14px;
+    background: #123b5d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover, .button-link:hover {
+    background: #137c8b;
+}
+
+.disclaimer, .note {
+    color: #64748b;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    margin-top: 20px;
+}
+
+.error {
+    padding: 12px;
+    color: #991b1b;
+    background: #fee2e2;
+    border-radius: 8px;
+}
+
+.result-card {
+    max-width: 620px;
+    margin: auto;
+}
+
+.gauge {
+    --probability: 0%;
+    width: 210px;
+    height: 210px;
+    margin: 10px auto 30px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: conic-gradient(
+        #d35454 var(--probability),
+        #e2e8f0 var(--probability)
+    );
+}
+
+.gauge-inner {
+    width: 168px;
+    height: 168px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.gauge-inner strong {
+    font-size: 1.9rem;
+    color: #123b5d;
+}
+
+.gauge-inner span {
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+.probability-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+.bar {
+    height: 12px;
+    margin-top: 8px;
+    background: #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.fill {
+    height: 100%;
+    border-radius: 10px;
+}
+
+.heart {
+    background: #d35454;
+}
+
+.no-disease {
+    background: #258b74;
+}
+
+@media (max-width: 640px) {
+    .container {
+        margin: 12px auto;
+        padding: 12px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    form, .result-card {
+        padding: 20px;
+    }
+}

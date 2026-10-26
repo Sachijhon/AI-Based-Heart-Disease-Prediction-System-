@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CardioAI | Heart Disease Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<main class="container">
+    <header>
+        <p class="eyebrow">CLINICAL DECISION SUPPORT</p>
+        <h1>CardioAI</h1>
+        <p>Heart Disease Probability Estimation</p>
+    </header>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form action="{{ url_for('predict') }}" method="POST">
+        <h2>Patient Clinical Inputs</h2>
+
+        <div class="grid">
+            <label>Age
+                <input type="number" name="age" min="1" max="120" required>
+            </label>
+
+            <label>Sex
+                <select name="sex" required>
+                    <option value="1">Male (1)</option>
+                    <option value="0">Female (0)</option>
+                </select>
+            </label>
+
+            <label>Chest Pain Type
+                <select name="cp" required>
+                    <option value="1">Typical angina (1)</option>
+                    <option value="2">Atypical angina (2)</option>
+                    <option value="3">Non-anginal pain (3)</option>
+                    <option value="4">Asymptomatic (4)</option>
+                </select>
+            </label>
+
+            <label>Resting Blood Pressure (mm Hg)
+                <input type="number" name="trestbps" min="70" max="250" required>
+            </label>
+
+            <label>Serum Cholesterol (mg/dL)
+                <input type="number" name="chol" min="80" max="700" required>
+            </label>
+
+            <label>Fasting Blood Sugar > 120 mg/dL
+                <select name="fbs" required>
+                    <option value="0">No (0)</option>
+                    <option value="1">Yes (1)</option>
+                </select>
+            </label>
+
+            <label>Resting ECG
+                <select name="restecg" required>
+                    <option value="0">Normal (0)</option>
+                    <option value="1">ST-T abnormality (1)</option>
+                    <option value="2">LV hypertrophy (2)</option>
+                </select>
+            </label>
+
+            <label>Maximum Heart Rate
+                <input type="number" name="thalach" min="50" max="250" required>
+            </label>
+
+            <label>Exercise-Induced Angina
+                <select name="exang" required>
+                    <option value="0">No (0)</option>
+                    <option value="1">Yes (1)</option>
+                </select>
+            </label>
+
+            <label>Oldpeak (ST Depression)
+                <input type="number" name="oldpeak" min="0" max="10"
+                       step="0.1" required>
+            </label>
+
+            <label>Slope of Peak Exercise ST Segment
+                <select name="slope" required>
+                    <option value="1">Upsloping (1)</option>
+                    <option value="2">Flat (2)</option>
+                    <option value="3">Downsloping (3)</option>
+                </select>
+            </label>
+
+            <label>Major Vessels (ca)
+                <select name="ca" required>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </label>
+
+            <label>Thal
+                <select name="thal" required>
+                    <option value="3">Normal (3)</option>
+                    <option value="6">Fixed defect (6)</option>
+                    <option value="7">Reversible defect (7)</option>
+                </select>
+            </label>
+        </div>
+
+        <button type="submit">Calculate Probabilities</button>
+        <p class="disclaimer">
+            For research and decision-support demonstration only.
+            Not a diagnosis or a substitute for clinical assessment.
+        </p>
+    </form>
+</main>
+</body>
+</html>

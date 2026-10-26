@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CardioAI | Prediction Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<main class="container">
+    <header>
+        <p class="eyebrow">MODEL OUTPUT</p>
+        <h1>Prediction Results</h1>
+        <p>Random Forest probability estimates</p>
+    </header>
+
+    <section class="result-card">
+        <div class="gauge"
+             style="--probability: {{ heart_probability }}%;">
+            <div class="gauge-inner">
+                <strong>{{ "%.2f"|format(heart_probability) }}%</strong>
+                <span>Heart disease</span>
+            </div>
+        </div>
+
+        <h2>Estimated Class Probabilities</h2>
+
+        <div class="probability-row">
+            <span>Heart Disease</span>
+            <strong>{{ "%.2f"|format(heart_probability) }}%</strong>
+        </div>
+        <div class="bar">
+            <div class="fill heart"
+                 style="width: {{ heart_probability }}%;"></div>
+        </div>
+
+        <div class="probability-row">
+            <span>No Heart Disease</span>
+            <strong>{{ "%.2f"|format(no_disease_probability) }}%</strong>
+        </div>
+        <div class="bar">
+            <div class="fill no-disease"
+                 style="width: {{ no_disease_probability }}%;"></div>
+        </div>
+
+        <p class="note">
+            These percentages are the model's estimated class probabilities.
+            They are not necessarily calibrated clinical risk estimates.
+        </p>
+
+        <p class="disclaimer">
+            This result is not a medical diagnosis. A qualified healthcare
+            professional must interpret clinical findings and determine
+            appropriate next steps.
+        </p>
+
+        <a class="button-link" href="{{ url_for('index') }}">
+            Enter Another Patient
+        </a>
+    </section>
+</main>
+</body>
+</html>
